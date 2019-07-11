@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#run:./retrieve_smartContractProj.sh client_secret
+#run:./retrieve_smartContractProj.sh 12client_secret
 
 clientAccount=$1 
 clientCnt=$(cat $clientAccount | wc -l)
@@ -68,7 +68,6 @@ function one_search(){
         url=${queryPrefix}"\"${timeRange}\"&page=${pageCnt}&per_page=${pageLimit}&${client}"
 
         echo $url
-
         curl -m 120 $url -o tmpFilter
 
         grep "\"full_name\":" tmpFilter | awk '{print $NF}' | cut -f1 -d "," > tmpFilterFn
@@ -76,6 +75,10 @@ function one_search(){
         gotFn=$((gotFn+fnCnt))
         cat tmpFilterFn >>fn
         rm tmpFilter tmpFilterFn
+
+        if [ "$fnCnt" -eq "0" ]; then
+            break
+        fi
     done
 }
 
@@ -134,4 +137,3 @@ run_filter 2015
 #run_filter 2016
 #run_filter 2017
 #run_filter 2018
-

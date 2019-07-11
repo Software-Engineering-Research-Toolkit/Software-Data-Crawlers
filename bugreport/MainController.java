@@ -19,15 +19,15 @@ public class MainController {
 		String jksPath;
 		
 		Scanner scan = new Scanner(System.in);
-		System.out.println("输入需要爬取项目名：");
+		System.out.println("Project Name:");
 		project = scan.nextLine();
-		System.out.println("输入需要爬取项目的bugzilla的基地址：");
+		System.out.println("Corresponding bugzilla base URL:");
 		baseURL = scan.nextLine();
-		System.out.println("输入爬取网站的jks文件地址（no代表不加入jks文件，此时有可能不能访问）");
+		System.out.println("jks file url (input no if you cannot fine it)");
 		jksPath = scan.nextLine();
-		System.out.println("输入此次任务截止编号:");
+		System.out.println("End report ID:");
 		total = scan.nextLong();
-		System.out.println("输入此次任务开始爬取的编号（０代表自动从上次停止处爬取,第一次默认从10000开始爬取）：");
+		System.out.println("Start report ID (0 means continue, 10000 by default):");
 		begin = scan.nextLong();
 		scan.close();
 		
@@ -35,7 +35,7 @@ public class MainController {
 		if(begin != 0)
 			config.setBegin(begin);
 		if(!jksPath.equals("no")){
-			System.out.println("加入证书"+jksPath);
+			System.out.println("Add jks file"+jksPath);
 			config.setJksPath(jksPath);
 		}
 		Task task = new Task(config);
